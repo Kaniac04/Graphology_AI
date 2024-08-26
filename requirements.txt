@@ -1,0 +1,8 @@
+Flask==3.0.3
+fpdf==1.7.2
+mistralai==1.0.2
+numpy==2.1.0
+scipy==1.14.1
+scikit-image==0.24.0
+Werkzeug==3.0.4
+opencv-python==4.10.0.84
