@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to PDF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 50px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload an Image to Get PDF Report</h1>
+    <form id="uploadForm">
+        <input type="text" name="name" placeholder="Enter your name" required><br>
+        <input type="file" name="file" id="fileInput" accept="image/*" required><br>
+        <button type="submit">Upload Image</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            
+            const formData = new FormData();
+            const fileInput = document.getElementById('fileInput');
+            const nameInput = document.querySelector('input[name="name"]').value;
+            formData.append('file', fileInput.files[0]);
+            formData.append('name', nameInput);
+
+            const response = await fetch('/', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'report.pdf';
+                link.innerText = 'Download PDF Report';
+                document.getElementById('result').innerHTML = '';
+                document.getElementById('result').appendChild(link);
+            } else {
+                document.getElementById('result').innerText = 'An error occurred. Please try again.';
+            }
+        });
+    </script>
+</body>
+</html>

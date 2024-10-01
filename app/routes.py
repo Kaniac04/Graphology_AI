@@ -5,8 +5,10 @@ from app.utils import allowed_file, process_image,generate_pdf
 from agent import get_traits_from_AI
 main = Blueprint('main', __name__)
 
-@main.route('/', methods=['POST'])
+@main.route('/', methods=["GET",'POST'])
 def upload_image():
+    if request.method == "GET" :
+        return render_template('index.html')
     if request.method == 'POST':
         if 'file' not in request.files:
             return 'No file part'

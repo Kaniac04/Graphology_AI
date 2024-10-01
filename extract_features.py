@@ -543,24 +543,12 @@ def extract_slant(image : cv2.typing.MatLike, words : list) -> None:
         else:
             print("\n************************************************")
             print("Slant determined to be irregular.")
-        cv2.imshow("Check Image", image)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
-        type = input("Press enter if okay, else enter c to change: ")
-        if type == 'c':
-            if angle == 0:
-                angle = 180
-                result = " : Irregular Slant"
-                print("Set as"+result)
-                print("************************************************\n")
-            else:
-                angle = 0
-                result = " : Straight/No Slant"
-                print("Set as"+result)
-                print("************************************************\n")
-        else:
-            print("No Change!")
+            angle = 0
+            result = " : Straight/No Slant"
+            print("Set as"+result)
             print("************************************************\n")
+        
+        
 
     SLANT_ANGLE = angle
     
